@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-prueba
+    ports:
+      - "80:80"      
+      - "443:443"            
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./web:/var/www/sitio1/html:ro
+      - ./confidencial:/var/www/sitio2/html/confidencial:ro
+      - ./certificados:/etc/nginx/ssl:ro
+    restart: unless-stopped
+    depends_on:
+      - tomcat
+  
+  tomcat:
+    image: tomcat:9.0-jdk11-openjdk 
+    container_name: tomcat-server
+    volumes:
+      - ./java/sample.war:/usr/local/tomcat/webapps/sample.war
