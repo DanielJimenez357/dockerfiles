@@ -10,7 +10,7 @@ services:
       - ./web:/var/www/sitio1/html:ro
       - ./confidencial:/var/www/sitio2/html/confidencial:ro
       - ./certificados:/etc/nginx/ssl:ro
-      - ./apache/web/index.html:/var/www/sitio_protegido:ro
+      - ./apache/web:/var/www/sitio_protegido:ro
     depends_on:
       - tomcat
       - apache
