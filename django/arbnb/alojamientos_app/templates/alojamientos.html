@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+    
+    <div class="container">
+    <a href="{% url 'nuevo_alojamiento' %}" class="btn btn-primary mt-3">Nuevo alojamiento</a>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Precio al dia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+        
+            {% for alojamiento in alojamientos %}
+                
+                <tr>
+                
+                    <td>{{alojamiento.descripcion}}</td>
+                    <td>{{alojamiento.precio}}</td>
+                    <td><a href="{% url 'editar_alojamiento' alojamiento.id %}">Editar</a></td>
+                    <td><a href="{% url 'ver_alquileres' alojamiento.id %}">Ver alquileres</a></td>
+                    
+                </tr>
+
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+
+    </div>
+
+{% endblock %}

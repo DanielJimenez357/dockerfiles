@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+    
+    <div class="container">
+    <h1>Alquileres de {{alojamiento.descripcion }} </h1>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Comentario</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+        
+            {% for alquiler in alquileres %}
+                
+                <tr>
+                
+                    <td>{{alquiler.cliente.first_name}}</td>
+                    <td>{{alquiler.cliente.last_name}}</td>
+                    <td>{{alquiler.desde}}</td>
+                    <td>{{alquiler.hasta}}</td>
+                    <td>{{alquiler.comentario}}</td>
+                    
+                </tr>
+
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+
+    </div>
+
+{% endblock %}

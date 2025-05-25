@@ -1,0 +1,15 @@
+{% extends 'base.html' %} <!-- Asume que tienes un base.html -->
+
+{% block title %}Editar {{ alojamiento.nombre }}{% endblock %}
+
+{% block content %}
+  <h1>Editar Alojamiento: {{ alojamiento.nombre }}</h1>
+  <form method="post">
+    {% csrf_token %} 
+    
+    {{ form}}
+    
+    <button type="submit">Guardar Cambios</button>
+  </form>
+
+  {% endblock %}

@@ -1,0 +1,38 @@
+services:
+  web:
+    build: .
+    image: mi-app-django-compose 
+    container_name: mi-django-app-compose 
+    command: > # Usamos '>' para un comando multi-línea más legible
+      sh -c "python manage.py migrate &&
+            gunicorn --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-3} arbnb.wsgi:application"
+    ports:
+      - "8000:8000" 
+    environment:
+      SECRET_KEY: "pepe"
+      DEBUG: "1"
+      DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+      # Variables para la conexión a la base de datos (deben coincidir con las de 'db' service)
+      POSTGRES_DB: "base_datos_arbnb"
+      POSTGRES_USER: "pepe"
+      POSTGRES_PASSWORD: "pepe"
+      POSTGRES_HOST: "bd" # Nombre del servicio de la base de datos
+      POSTGRES_PORT: "5432"
+      # GUNICORN_WORKERS: "3" # Si lo necesitas
+      PYTHONUNBUFFERED: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+    depends_on:
+      - bd
+
+  bd: 
+    image: postgres:14-alpine 
+    container_name: base_datos
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ 
+    environment:
+      POSTGRES_DB: "base_datos_arbnb" # Elige el nombre de tu base de datos
+      POSTGRES_USER: "pepe" # Elige un usuario
+      POSTGRES_PASSWORD: "pepe" # Elige una contraseña segura
+
+volumes:
+  postgres_data:

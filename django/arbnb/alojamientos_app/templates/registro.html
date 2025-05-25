@@ -1,0 +1,13 @@
+{% extends "base.html" %} {# Opcional: si tienes una plantilla base #}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+  <h2>Registrarse</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }} 
+    <button type="submit">Registrarse</button>
+  </form>
+  <p><a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia sesión</a></p>
+{% endblock %}

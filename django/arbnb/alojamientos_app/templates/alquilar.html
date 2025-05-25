@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+    
+    <div class="container">
+    <a href="{% url 'alquilar' %}" class="btn btn-primary">Alquilar</a>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Alojamiento</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Comentarios</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+        
+            {% for alquilado in alquilados %}
+                
+                <tr>
+                
+                    <td>{{alquilado.alojamiento.descripcion}}</td>
+                    <td>{{alquilado.desde}}</td>
+                    <td>{{alquilado.hasta}}</td>
+                    <td><a href="{% url 'comentar' alquilado.id %}" class = "btn btn-primary">Comentar</a></td>
+                </tr>
+
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+
+    </div>
+
+{% endblock %}

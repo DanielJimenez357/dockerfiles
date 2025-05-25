@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+<h4 class="mt-3">[Iniciar Sesión]</h4>
+<form method="post"  class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Entrar</button>
+    <p><a href="{% url 'registro' %}">¿No tienes una cuenta? Regístrate aquí</a></p>
+</form>
+
+{% endblock %}
