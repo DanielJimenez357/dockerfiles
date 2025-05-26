@@ -21,20 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# El valor por defecto '0' se convierte a False. '1' se convierte a True.
 DEBUG = bool(int(os.environ.get("DEBUG", default=0))) # Asegurarse que es int antes de bool
 
-# ALLOWED_HOSTS lee la variable de entorno y la divide por comas.
-# Si no se proporciona DJANGO_ALLOWED_HOSTS, por defecto usa "localhost,127.0.0.1" para desarrollo.
 ALLOWED_HOSTS_STRING = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STRING.split(',') if host.strip()]
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,9 +56,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Si tus plantillas (login.html, registro.html, base.html) están en una carpeta 'templates'
-        # en la raíz de tu proyecto (al mismo nivel que manage.py), añade esto:
-        'DIRS': [BASE_DIR / 'templates'], # <--- AÑADE O VERIFICA ESTO
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,24 +69,16 @@ TEMPLATES = [
     },
 ]
 
-# Asegúrate de que ROOT_URLCONF y WSGI_APPLICATION (si la usas) apunten
-# al nombre correcto de tu proyecto/aplicación principal.
-# Si tu wsgi.py está en 'arbnb/wsgi.py', entonces:
-# WSGI_APPLICATION = 'arbnb.wsgi.application' # Descomenta y ajusta si es necesario
+ROOT_URLCONF = 'arbnb.urls' 
 
-ROOT_URLCONF = 'arbnb.urls' # Esto parece correcto si tu urls.py principal está en arbnb/
-
-# Database
-# Configuración para PostgreSQL usando variables de entorno del docker-compose.yml
-# Asegúrate de tener 'psycopg2-binary' en tu requirements.txt
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB'), # 'arbnb_bd' o 'base_datos_arbnb' según tu compose
-        'USER': os.environ.get('POSTGRES_USER'), # 'pepe'
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'), # 'pepe'
-        'HOST': os.environ.get('POSTGRES_HOST'), # 'bd' (nombre del servicio de la BD en compose)
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'), # Puerto de PostgreSQL
+        'NAME': os.environ.get('POSTGRES_DB'), 
+        'USER': os.environ.get('POSTGRES_USER'), 
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'), 
+        'HOST': os.environ.get('POSTGRES_HOST'), 
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'), 
     }
 }
 
@@ -102,25 +88,14 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 LOGIN_REDIRECT_URL = '/alojamientos/'
 LOGOUT_REDIRECT_URL = '/'
 
-# AUTH_PASSWORD_VALIDATORS comentado, está bien si no los necesitas por ahora.
 
 # Internationalization
-LANGUAGE_CODE = 'es-es' # Cambiado a español como ejemplo, ajusta si prefieres en-us
-TIME_ZONE = 'Europe/Madrid' # Ajusta a tu zona horaria
+LANGUAGE_CODE = 'es-es'
+TIME_ZONE = 'Europe/Madrid' 
 USE_I18N = True
-# USE_L10N = True # En Django 4.0+ USE_L10N está obsoleto y se eliminó, USE_I18N lo cubre.
-# Para Django 3.2, USE_L10N todavía es válido.
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-# Para servir archivos estáticos en desarrollo con Docker (si no usas un servidor web como Nginx aún)
-# y si tienes una carpeta 'static' en la raíz de tu proyecto:
-# STATICFILES_DIRS = [BASE_DIR / 'static']
-# STATIC_ROOT = BASE_DIR / 'staticfiles_collected' # Para collectstatic
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-FORCE_SCRIPT_NAME = '/django'
