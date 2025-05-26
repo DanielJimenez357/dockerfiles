@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = bool(int(os.environ.get("DEBUG", default=0))) # Asegurarse que es int antes de bool
+DEBUG = bool(int(os.environ.get("DEBUG", default=0))) 
 
 ALLOWED_HOSTS_STRING = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STRING.split(',') if host.strip()]
@@ -31,6 +31,10 @@ ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STRING.split(',') if hos
 
 # Application definition
 
+
+CSRF_TRUSTED_ORIGINS = [
+         'http://127.0.0.1:65210',
+     ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
