@@ -25,16 +25,23 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = bool(int(os.environ.get("DEBUG", default=0))) 
 
-ALLOWED_HOSTS_STRING = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
-ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STRING.split(',') if host.strip()]
+DOMINIO = os.environ.get('DOMINIO_APP', 'localhost')
+ALLOWED_HOSTS = [
+    DOMINIO,
+    f'www.{DOMINIO}',
+    '.internal.eks.cluster.local', # Patrón genérico para servicios internos
+    # ... puedes añadir más patrones o hosts específicos leídos de otras variables
+]
 
 
 # Application definition
 
 
-CSRF_TRUSTED_ORIGINS = [
-         'http://127.0.0.1:65210',
-     ]
+if 'LISTA_CSRF' in os.environ:
+    CSRF_TRUSTED_ORIGINS = os.environ['LISTA_CSRF'].split(',')
+else:
+    CSRF_TRUSTED_ORIGINS = [f'https://{DOMINIO}', f'http://{DOMINIO}']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
