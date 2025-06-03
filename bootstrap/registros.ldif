@@ -1,0 +1,20 @@
+dn: dc=contenedores
+objectClass: top
+objectClass: domain
+dc: contenedores
+
+dn: ou=users,dc=contenedores
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+dn: uid=Susana,ou=users,dc=contenedores
+changetype: add
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: Susana
+cn: Pepe Sanchez
+sn: Sanchez
+userPassword: 123

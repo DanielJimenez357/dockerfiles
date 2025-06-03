@@ -10,3 +10,31 @@ services:
       - ./web:/var/www/sitio1/html:ro
       - ./confidencial:/var/www/sitio2/html/confidencial:ro
       - ./certificados:/etc/nginx/ssl:ro
+    depends_on:
+     - apache
+     - openldap
+
+  apache:
+    build:
+      context: ./apache_correccion
+      dockerfile: Dockerfile
+    container_name: apache-ldap
+    volumes:
+      - ./apache/ldap.conf:/usr/local/apache2/conf.d/httpd-ldap.conf:ro
+      - ./apache/web:/usr/local/apache2/htdocs_ldap:ro 
+
+  openldap:
+    image: bitnami/openldap:latest
+    container_name: openldap-server
+    environment:
+      - LDAP_ROOT=dc=contenedores
+      - LDAP_ADMIN_USERNAME=admin
+      - LDAP_ADMIN_PASSWORD=123
+      - LDAP_TLS_ENABLED=no
+      - LDAP_CUSTOM_LDIF_DIR=/ldifs
+    ports:
+      - "1389:1389"
+
+    volumes:
+      - ./openldap_data:/bitnami/openldap
+      - ./openldap/ldif/bootstrap:/ldifs:ro

@@ -1,0 +1,21 @@
+# AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
+# CRC32 89aae779
+dn: olcDatabase={2}mdb
+objectClass: olcDatabaseConfig
+objectClass: olcMdbConfig
+olcDatabase: {2}mdb
+olcDbDirectory: /bitnami/openldap/data
+olcMonitoring: FALSE
+olcDbIndex: objectClass eq,pres
+olcDbIndex: ou,cn,mail,surname,givenname eq,pres,sub
+olcDbMaxSize: 1073741824
+structuralObjectClass: olcMdbConfig
+entryUUID: b800a6e0-c227-103f-86e3-93abfc87753d
+creatorsName: cn=config
+createTimestamp: 20250510201845Z
+olcSuffix: dc=contenedores
+olcRootDN: cn=admin,dc=contenedores
+olcRootPW:: e1NTSEF9T1VWSWVFNXpkSUd5Q05kRlNpT21qNjNlVHk4ZkVoS2g=
+entryCSN: 20250510201846.533470Z#000000#000#000000
+modifiersName: gidNumber=0+uidNumber=1001,cn=peercred,cn=external,cn=auth
+modifyTimestamp: 20250510201846Z
